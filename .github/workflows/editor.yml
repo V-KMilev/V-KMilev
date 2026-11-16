@@ -1,0 +1,38 @@
+# Draws the editor's panels under the banner: repositories, latest commits, stats, and the contribution graph eaten by a
+# snake in the engine's red, into the output branch the README shows. From public data, with this workflow's own token.
+name: editor
+
+on:
+  push: {branches: [main]}
+  schedule: [{cron: "0 4 * * *"}]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  draw:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: dist/snake.svg?palette=github-dark&color_snake=#dc3c3c
+
+      - name: Draw the panels
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LOGIN: ${{ github.repository_owner }}
+        run: python3 .github/editor/editor.py dist/snake.svg dist/editor.svg
+
+      - name: Publish to the output branch
+        run: |
+          cd dist
+          git init -q -b output
+          git config user.name github-actions
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add .
+          git commit -q -m "The editor's panels, drawn"
+          git push -q -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" output
