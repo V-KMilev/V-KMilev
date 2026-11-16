@@ -4,5 +4,3 @@
 
 I build **[vkmEngine](https://github.com/V-KMilev/vkmEngine)**, a C++ game engine for Windows and Linux, and the libraries
 under it, from the renderer to the physics. *Build games, not engines.*
-
-[vkmengine.com](https://vkmengine.com) · [Docs](https://vkmengine.com/docs/) · [Projects](https://vkmengine.com/projects.html)
