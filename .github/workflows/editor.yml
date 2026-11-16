@@ -1,5 +1,5 @@
-# Draws the editor's panels under the banner: repositories, latest commits, stats, and the contribution graph eaten by a
-# snake in the engine's red, into the output branch the README shows. From public data, with this workflow's own token.
+# Draws the editor's panels the README shows: repositories, latest commits, stats, and the contribution graph eaten by a
+# snake in the engine's red, into the output branch. From public data, with this workflow's own token.
 name: editor
 
 on:
